@@ -58,16 +58,16 @@ for x in results_dict[phen1]['human_set']:
 print overlaps
 
 # Grab all the gene names from the DDG2P input file
-gene_set = set()
+ddg2p_set = set()
 first_line = True
 with open(ddg2p, 'r') as handle:
 	for line in handle:
 		if first_line:
 		    first_line = False
 		else:
-		    gene_set.add(line.split(',')[0])
+		    ddg2p_set.add(line.split(',')[0])
 		    
-print 'Number of DDG2P genes: {}'.format(len(gene_set))            
+print 'Number of DDG2P genes: {}'.format(len(ddg2p_set))            
 
 # Set values to count the total number of overlaps involved
 phen_1_overlap = 0
@@ -75,7 +75,7 @@ phen_2_overlap = 0
 # And a value to count the number overlapping both phenotypes
 both_count = 0
 
-for gene in gene_set:
+for gene in ddg2p_set:
     both = False
     if gene in results_dict[phen1]['human_set']:
         print 'This gene is present in {}-Human and DDG2P: {}'.format(phen1, gene)
