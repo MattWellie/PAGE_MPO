@@ -1,56 +1,22 @@
 #!/usr/bin/perl
 use Vcf;
 use DDP;
-use warnings;
 
-my $vcf = Vcf->new(file=>'744_anno.vcf.hg19_multianno.vcf');
-
-# unless ($vcf) {die "Input vcf not available..."}
-
+my $vcf = Vcf->new(file=>'PP0001.vcf.gz');
 $vcf->parse_header();
+$line = $vcf->next_data_hash();
 
-# This script will print out each entry of the VCF in full colourised DDP
-# Crappy condition asking if this is what the user wants:
-print "Would you like to read the full file?: (y/n)";
-$this = <STDIN>;
-chomp($this);
-if ($this eq 'y')
-{
-    while (my $x=$vcf->next_data_hash())
-    {
-        p($x);
-        # After each iteration, provide a choice to quit
-        print "Press 'q' to quit, Enter to continue...";
-        $quit = <STDIN>;
-        chomp($quit);
-        if ($quit eq "q")
-        {
-            exit;
-        }
-    }
-}
+my %vcf_hash = %{$line}; # This works
+p(%vcf_hash);
 
-# Now print some elements from the Hash
-# Select one VCF row as an example
-$vcf_line = $vcf->next_data_hash();
+my $vcf_pos = $line->{"POS"};
+print "POS = $vcf_pos \n";
 
-# Get Ref allele
-# Only one Ref allele should exist
-my $ref_element = $vcf_line->{"REF"};
-print "Reference allele: $ref_element\n";
+my $vcf_ref = $line->{"REF"};
+print "REF = $vcf_ref \n";
 
-# Get Alt allele
-# Nested array, to allow for multiple alternate alleles at the same locus
-# Top level index is "ALT", then [0] for the first Alt allele, then [0] for the value
-my @alt_element = $vcf_line->{"ALT"};
-print "Variant alleme: $alt_element[0][0]\n";
+my $vcf_2deep = $line->{"INFO"}{"AC"};
+print "AC = $vcf_2deep \n";
 
-
-# Get Position, numerical
-my $pos_element = $vcf_line->{"POS"};
-print "Variant position: $pos_element\n";
-
-# Get Qual
-my $qual_element = $vcf_line->{"QUAL"};
-print "Quality value: $qual_element\n";
-
+my $vcf_3deep = $line->{"gtypes"}{"PP0001"}{"AD"};
+print "genotypes-sample-AD = $vcf_3deep \n";
