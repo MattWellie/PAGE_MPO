@@ -32,6 +32,10 @@ printed_lines.append('Unique genes found: {}'.format(len(gene_set)))
 printed_lines.append('{} genes were present in multiple categories:\n'.format(len(gene_duplicates)))
 printed_lines.append(gene_duplicates)
 
+# Dump the gene set to a pickle file
+with open('genes_of_interest.cPickle', 'w') as handle:
+    cPickle.dump(gene_set, handle)
+
 # Grab all the gene names from the DDG2P input file
 ddg2p_set = set()
 first_line = True
@@ -47,6 +51,10 @@ ddg2p_overlap = set()
 for gene in gene_set:
     if gene in ddg2p_set:
         ddg2p_overlap.add(gene)
+
+# Dump the gene set to a pickle file
+with open('ddg2p_overlap_genes.cPickle', 'w') as handle:
+    cPickle.dump(ddg2p_overlap, handle)
 
         
 printed_lines.append('Total phenotype genes overlapping DDG2P: {}'.format(len(ddg2p_overlap)))
