@@ -4,7 +4,7 @@
 
 import csv
 
-file_in = 'batch_query_dataset.tsv'
+file_in = 'batch_query_no_infertile.tsv'
 ddg2p = 'DDG2P.csv'
 phenotype_col = 'mp_id'
 human_col = 'human_gene_symbol'

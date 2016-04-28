@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 Something quick to get a set of genes from a csv file
 """
 
-file_in = 'batch_tsv.txt'
+file_in = 'batch_query_no_infertile.tsv'
 field = 'human_gene_symbol'
 ddg2p = 'DDG2P.csv'
 annotations = 'annotations.cPickle'
